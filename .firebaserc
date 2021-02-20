@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ober-dev"
+    "production": "ober",
+    "staging": "ober-dev"
   }
 }

@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
+        if: github.ref == 'refs/heads/main'
         uses: actions/checkout@main
+      - name: Checkout Repo Staging
+        if: github.ref == 'refs/heads/staging'
+        uses: actions/checkout@staging
       - name: Install Dependencies
         run: npm install
       - name: Build

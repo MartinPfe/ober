@@ -2,20 +2,20 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - staging
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@staging
       - name: Install Dependencies
         run: npm install
       - name: Build
         run: npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@main
+      - name: Archive Staging Artifact
+        uses: actions/upload-artifact@staging
         with:
           name: dist
           path: dist
@@ -25,15 +25,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@staging
       - name: Download Artifact
-        uses: actions/download-artifact@main
+        uses: actions/download-artifact@staging
         with:
           name: dist
           path: dist
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@main
+        uses: w9jds/firebase-action@staging
         with:
-          args: deploy --only hosting -P production
+          args: deploy --only hosting -P staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

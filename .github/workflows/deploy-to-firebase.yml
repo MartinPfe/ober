@@ -6,12 +6,6 @@ on:
       - main
       - staging
 
-
-name: Build and Deploy
-on:
-  push:
-    branches:
-      - main
 jobs:
   build:
     name: Build
@@ -58,13 +52,13 @@ jobs:
         uses: w9jds/firebase-action@staging
         if: github.ref == 'refs/heads/staging'
         with:
-          args: deploy --only hosting -P staging 
+          args: deploy --only hosting -P staging
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase Production
         uses: w9jds/firebase-action@main
         if: github.ref == 'refs/heads/main'
         with:
-          args: deploy --only hosting -P production 
+          args: deploy --only hosting -P production
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

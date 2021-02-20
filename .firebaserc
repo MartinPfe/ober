@@ -1,6 +1,6 @@
 {
   "projects": {
-    "production": "ober",
+    "production": "ober-6e4f8",
     "staging": "ober-dev"
   }
 }

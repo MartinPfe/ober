@@ -10,7 +10,7 @@ const Home = () => {
         <figcaption className="font-medium">
           <div className="text-cyan-600">Martín Pfeiffer</div>
           <div className="text-gray-500">Argentina</div>
-          <div className="text-gray-500">STAGING AREA</div>
+          <div className="text-gray-500">Production AREA</div>
         </figcaption>
       </div>
     </figure>

@@ -1,6 +1,10 @@
 import React from "react";
 
 const Home = () => {
+  function sum(a, b) {
+    return a + b;
+  }
+
   return (
     <figure className="bg-gray-100 rounded-xl p-8">
       <div className="pt-6 text-center space-y-4">

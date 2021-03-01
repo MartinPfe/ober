@@ -1,6 +1,6 @@
 import React from "react";
-import AuthApi from "../api/AuthApi";
-import useUser from "../hooks/useUser";
+import AuthApi from "../../api/AuthApi";
+import useUser from "../../hooks/useUser";
 
 const Header = () => {
   const user = useUser();

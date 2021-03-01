@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -6,6 +7,7 @@ const Home = () => {
       <div className="pt-6 text-center space-y-4">
         <blockquote>
           <p className="text-lg font-semibold">Ober APP - WIP!</p>
+          <Link to="/Restaurants">Ver mis resturantes</Link>
         </blockquote>
         <figcaption className="font-medium">
           <div className="text-cyan-600">Martín Pfeiffer</div>

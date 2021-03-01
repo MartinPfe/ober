@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Home, Restaurants } from "../containers";
-import Layout from "../containers/Layout";
+import { Home, Restaurants } from "../containers/";
+import Layout from "../containers/main/Layout";
 
 const App = () => {
   return (

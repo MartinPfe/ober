@@ -1,21 +1,20 @@
+import { Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RestaurantApi from "../../api/RestaurantApi";
 import useUser from "../../hooks/useUser";
-
 const Restaurants = () => {
   const user = useUser();
 
   const [Restaurants, setRestaurants] = useState([]);
 
   React.useEffect(() => {
-    console.log("usuario:", user);
-    console.log("usuario.uid:", user.uid);
-
-    RestaurantApi.getAll(user.uid, (restaurants) => {
-      console.log("restaurantes:", restaurants);
-      setRestaurants(restaurants);
-    });
+    if (user != null) {
+      RestaurantApi.getAll(user.uid, (restaurants) => {
+        console.log("restaurantes:", restaurants);
+        setRestaurants(restaurants);
+      });
+    }
   }, [user]);
 
   return (
@@ -30,7 +29,8 @@ const Restaurants = () => {
           <div key={restaurant.id}>
             {restaurant.name} - {restaurant.address}
             <Link to={`/restaurants/add/${restaurant.id}`}>
-              <button>Editar</button>
+              <Button>Editar</Button>
+              <Button colorScheme="blue">Button</Button>
             </Link>
           </div>
         ))}

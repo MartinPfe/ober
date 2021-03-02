@@ -39,21 +39,22 @@ const RestaurantAdd = () => {
   };
 
   React.useEffect(() => {
-    if (restaurantId != null) {
-      console.log("Haciendo el get?");
-      RestaurantApi.get(user.uid, restaurantId, (restaurant) => {
-        const updatedState = {
-          form: {
-            name: restaurant.name,
-            address: restaurant.address,
-          },
-        };
+    if (user != null) {
+      if (restaurantId != null) {
+        console.log("Haciendo el get?");
+        RestaurantApi.get(user.uid, restaurantId, (restaurant) => {
+          const updatedState = {
+            form: {
+              name: restaurant.name,
+              address: restaurant.address,
+            },
+          };
 
-        setCurrentRestaurant(updatedState);
-      });
+          setCurrentRestaurant(updatedState);
+        });
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user, restaurantId]);
 
   const handleChange = (e) => {
     setCurrentRestaurant({

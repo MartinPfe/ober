@@ -5,7 +5,7 @@ const SessionContext = React.createContext(null);
 
 const SessionProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
-  const [, setStatus] = React.useState("init");
+  const [status, setStatus] = React.useState("init");
 
   React.useEffect(() => {
     AuthApi.onChange((user) => {
@@ -21,7 +21,7 @@ const SessionProvider = ({ children }) => {
   const actions = { signOut: AuthApi.signOut, signIn: AuthApi.signIn };
 
   return (
-    <SessionContext.Provider value={{ state, actions }}>
+    <SessionContext.Provider value={{ state, actions, status }}>
       {children}
     </SessionContext.Provider>
   );

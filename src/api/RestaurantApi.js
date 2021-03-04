@@ -14,8 +14,7 @@ const RestaurantApi = {
       .collection("restaurant")
       .doc(id)
       .update(restaurant),
-
-  remove: (user, id) =>
+  delete: (user, id) =>
     database
       .collection("users")
       .doc(user)

@@ -45,9 +45,9 @@ const Header = () => {
                   Acciones
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>
-                    <Link to="/Restaurants">Restaurantes</Link>
-                  </MenuItem>
+                  <Link to="/Restaurants">
+                    <MenuItem>Restaurantes</MenuItem>
+                  </Link>
                   <MenuItem onClick={AuthApi.signOut}>Cerrar sesión</MenuItem>
                 </MenuList>
               </Menu>{" "}

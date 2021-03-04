@@ -9,7 +9,7 @@ const RestaurantCard = ({ restaurant, callbackFunc }) => {
   const toast = useToast();
 
   const deleteRestaurant = () => {
-    RestaurantApi.delete(user.ui, restaurant.id);
+    RestaurantApi.delete(user.uid, restaurant.id);
     showToast();
     callbackFunc();
   };

@@ -1,23 +1,21 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 const Footer = () => {
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="1.5rem"
-      h="18"
-      bg="teal.500"
-      color="white"
-      position="flex-end"
-    >
-      <Text>Martín Pfeiffer</Text>
-      <Text>Argentina</Text>
-      <Text>STAGING AREA</Text>
-    </Flex>
+    <Box position="fixed" bottom={0} left={0} right={0}>
+      <Flex
+        align="center"
+        justify="space-between"
+        padding="1.5rem"
+        bg="teal.500"
+        color="white"
+      >
+        <Text>Martín Pfeiffer</Text>
+        <Text>Argentina</Text>
+        <Text>STAGING AREA</Text>
+      </Flex>
+    </Box>
   );
 };
 

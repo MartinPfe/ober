@@ -8,7 +8,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Flex height="auto">
+        <Flex display="flex" flexGrow flexDirection="column" p="6">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/restaurants" component={Restaurants} />

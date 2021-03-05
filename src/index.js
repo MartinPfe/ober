@@ -1,12 +1,18 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider as SessionProvider } from "./contexts/SessionContext";
 import reportWebVitals from "./reportWebVitals";
 import App from "./routes/App";
 import "./styles/index.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+      <SessionProvider>
+        <App />
+      </SessionProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

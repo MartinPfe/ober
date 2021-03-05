@@ -1,2 +1,2 @@
-export { default as Home } from "./Home";
-export { default as Restaurants } from "./Restaurants";
+export { default as Home } from "./main/Home";
+export { default as Restaurants } from "./restaurants/Restaurants";

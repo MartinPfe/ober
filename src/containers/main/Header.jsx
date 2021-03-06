@@ -48,6 +48,9 @@ const Header = () => {
                   <Link to="/Restaurants">
                     <MenuItem>Restaurantes</MenuItem>
                   </Link>
+                  <Link to="/categories">
+                    <MenuItem>Categorias</MenuItem>
+                  </Link>
                   <MenuItem onClick={AuthApi.signOut}>Cerrar sesión</MenuItem>
                 </MenuList>
               </Menu>{" "}

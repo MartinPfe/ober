@@ -1,49 +1,45 @@
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  NumberInput,
+  NumberInputField,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useHistory, useParams } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import CategoryApi from "../api";
 
 const CategoriesAdd = () => {
-  const form = useRef(null);
   const history = useHistory();
   const user = useUser();
   const toast = useToast();
   const [mensajeError, setMensajeError] = useState("");
 
-  const { categoryId } = useParams();
+  const { register, handleSubmit, setValue } = useForm();
 
-  const initialState = {
-    form: {
-      name: "",
-      address: "",
-    },
-  };
-
-  const [currentCategory, setCurrentCategory] = useState(initialState);
-
-  const handleSubmit = () => {
-    const formData = new FormData(form.current);
-    const formCategory = {
-      name: formData.get("name"),
-      address: formData.get("address"),
-    };
-
-    if (formCategory.name.length < 3) {
+  const onSubmit = (data) => {
+    if (data.name.length < 3) {
       setMensajeError("Ingrese el nombre de la categoria");
       return false;
     }
 
     if (categoryId != null) {
-      CategoryApi.update(user.uid, categoryId, formCategory);
+      CategoryApi.update(user.uid, categoryId, data);
     } else {
-      CategoryApi.add(user.uid, formCategory);
+      CategoryApi.add(user.uid, data);
     }
     showToast();
     setTimeout(() => {
       history.push("/categories");
     }, 3);
   };
+
+  const { categoryId } = useParams();
 
   const showToast = () => {
     toast({
@@ -56,36 +52,26 @@ const CategoriesAdd = () => {
       isClosable: true,
     });
   };
+
   React.useEffect(() => {
     if (user != null) {
       if (categoryId != null) {
+        console.log("get");
         CategoryApi.get(user.uid, categoryId, (category) => {
-          const updatedState = {
-            form: {
-              name: category.name,
-              address: category.address,
-            },
-          };
-
-          setCurrentCategory(updatedState);
+          console.log("category:", category);
+          setValue("name", category.name);
+          setValue("basePrice", category.basePrice);
         });
       }
     }
-  }, [user, categoryId]);
-
-  const handleChange = (e) => {
-    setCurrentCategory({
-      form: {
-        ...currentCategory.form,
-        [e.target.name]: e.target.value,
-      },
-    });
-  };
+  }, [user, categoryId, setValue]);
 
   return (
     <Box>
-      <Text fontSize="3xl">Nuevo categoría </Text>
-      <form ref={form}>
+      <Text fontSize="3xl">
+        {categoryId != null ? "Editar" : "Agregar"} categoría{" "}
+      </Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box width="360px">
           <Input
             type="text"
@@ -93,9 +79,17 @@ const CategoriesAdd = () => {
             id="name"
             placeholder="Nombre"
             mb="6"
-            value={currentCategory.form.name || ""}
-            onChange={handleChange}
+            ref={register}
           />
+
+          <NumberInput placeholder="Precio base" mb="6">
+            <NumberInputField
+              name="basePrice"
+              id="basePrice"
+              placeholder="Precio base"
+              ref={register}
+            />
+          </NumberInput>
 
           <Text
             fontSize="xl"
@@ -107,17 +101,16 @@ const CategoriesAdd = () => {
           </Text>
 
           <Flex col="2" justifyContent="space-between">
-            <Link to="/categorys">
+            <Link to="/categories">
               <Button bg="blue.400" fontWeight="bold" color="white">
                 Volver
               </Button>
             </Link>
             <Button
-              type="button"
+              type="submit"
               bg="green.400"
               fontWeight="bold"
               color="white"
-              onClick={handleSubmit}
             >
               {categoryId != null ? "Editar" : "Agregar"}
             </Button>

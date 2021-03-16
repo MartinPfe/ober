@@ -5,70 +5,81 @@ import {
   Input,
   NumberInput,
   NumberInputField,
+  Select,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory, useParams } from "react-router-dom";
+import CategoryApi from "../../categories/api";
 import useUser from "../../hooks/useUser";
-import CategoryApi from "../api";
+import ProductsApi from "../api";
 
-const CategoriesAdd = () => {
+const ProductsAdd = () => {
   const history = useHistory();
   const user = useUser();
   const toast = useToast();
   const [mensajeError, setMensajeError] = useState("");
 
-  const { categoryId } = useParams();
+  const [categories, setCategories] = useState([]);
+  const { productId } = useParams();
+
   const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = (data) => {
     if (data.name.length < 3) {
-      setMensajeError("Ingrese el nombre de la categoria");
+      setMensajeError("Ingrese el nombre del producto");
       return false;
     }
-
-    if (categoryId != null) {
-      CategoryApi.update(user.uid, categoryId, data);
+    if (productId != null) {
+      ProductsApi.update(user.uid, productId, data);
     } else {
-      CategoryApi.add(user.uid, data);
+      ProductsApi.add(user.uid, data);
     }
     showToast();
     setTimeout(() => {
-      history.push("/categories");
+      history.push("/products");
     }, 3);
   };
 
   const showToast = () => {
     toast({
-      title: `Categoría ${
-        categoryId != null ? "Editado" : "Agregado"
+      title: `Producto ${
+        productId != null ? "Editado" : "Agregado"
       } correctamente!`,
       description: "Regreasando al menú.",
       status: "success",
-      duration: 9000,
+      duration: 3000,
       isClosable: true,
     });
   };
 
   React.useEffect(() => {
     if (user != null) {
-      if (categoryId != null) {
-        console.log("get");
-        CategoryApi.get(user.uid, categoryId, (category) => {
-          console.log("category:", category);
-          setValue("name", category.name);
-          setValue("basePrice", category.basePrice);
+      if (productId != null) {
+        ProductsApi.get(user.uid, productId, (product) => {
+          console.log("product:", product);
+          setValue("name", product.name);
+          setValue("price", product.price);
+          setValue("categoryId", product.categoryId);
         });
       }
     }
-  }, [user, categoryId, setValue]);
+  }, [user, productId, setValue]);
+
+  React.useEffect(() => {
+    if (user != null) {
+      CategoryApi.getAll(user.uid, (allCategories) => {
+        setCategories(allCategories);
+      });
+    }
+  }, [user]);
 
   return (
     <Box>
       <Text fontSize="3xl">
-        {categoryId != null ? "Editar" : "Agregar"} categoría{" "}
+        {productId != null ? "Editar" : "Agregar"} producto{" "}
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box width="360px">
@@ -81,11 +92,28 @@ const CategoriesAdd = () => {
             ref={register}
           />
 
-          <NumberInput placeholder="Precio base" mb="6">
+          <Box mb="6">
+            <Select
+              placeholder="Categoría"
+              name="categoryId"
+              id="categoryId"
+              ref={register}
+            >
+              {categories.map((category) => {
+                return (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                );
+              })}
+            </Select>
+          </Box>
+
+          <NumberInput placeholder="Precio" mb="6">
             <NumberInputField
-              name="basePrice"
-              id="basePrice"
-              placeholder="Precio base"
+              name="price"
+              id="price"
+              placeholder="Precio"
               ref={register}
             />
           </NumberInput>
@@ -100,7 +128,7 @@ const CategoriesAdd = () => {
           </Text>
 
           <Flex col="2" justifyContent="space-between">
-            <Link to="/categories">
+            <Link to="/products">
               <Button bg="blue.400" fontWeight="bold" color="white">
                 Volver
               </Button>
@@ -111,7 +139,7 @@ const CategoriesAdd = () => {
               fontWeight="bold"
               color="white"
             >
-              {categoryId != null ? "Editar" : "Agregar"}
+              {productId != null ? "Editar" : "Agregar"}
             </Button>
           </Flex>
         </Box>
@@ -120,4 +148,4 @@ const CategoriesAdd = () => {
   );
 };
 
-export default CategoriesAdd;
+export default ProductsAdd;

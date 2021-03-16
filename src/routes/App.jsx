@@ -6,6 +6,8 @@ import CategoriesScreen from "../categories/screens/CategoriesScreen";
 import { Home, Restaurants } from "../containers/";
 import Layout from "../containers/main/Layout";
 import RestaurantAdd from "../containers/restaurants/RestaurantAdd";
+import ProductsAdd from "../products/screens/ProductsAdd";
+import ProductsScreen from "../products/screens/ProductsScreen";
 const App = () => {
   return (
     <BrowserRouter>
@@ -26,6 +28,13 @@ const App = () => {
               exact
               path="/categories/add/:categoryId"
               component={CategoriesAdd}
+            />
+            <Route exact path="/products" component={ProductsScreen} />
+            <Route exact path="/products/add" component={ProductsAdd} />
+            <Route
+              exact
+              path="/products/add/:productId"
+              component={ProductsAdd}
             />
           </Switch>
         </Flex>

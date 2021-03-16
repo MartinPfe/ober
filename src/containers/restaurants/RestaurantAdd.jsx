@@ -1,7 +1,17 @@
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import RestaurantApi from "../../api/RestaurantApi";
+import CategoryApi from "../../categories/api";
 import useUser from "../../hooks/useUser";
 
 const RestaurantAdd = () => {
@@ -17,8 +27,11 @@ const RestaurantAdd = () => {
     form: {
       name: "",
       address: "",
+      categories: [],
     },
   };
+
+  const [categories, setCategories] = useState([]);
 
   const [currentRestaurant, setCurrentRestaurant] = useState(initialState);
 
@@ -27,6 +40,7 @@ const RestaurantAdd = () => {
     const formRestaurant = {
       name: formData.get("name"),
       address: formData.get("address"),
+      categories: formData.getAll("categories"),
     };
 
     if (formRestaurant.name.length < 3) {
@@ -39,6 +53,7 @@ const RestaurantAdd = () => {
       return false;
     }
 
+    console.log(formRestaurant);
     if (restaurantId != null) {
       RestaurantApi.update(user.uid, restaurantId, formRestaurant);
     } else {
@@ -69,6 +84,7 @@ const RestaurantAdd = () => {
             form: {
               name: restaurant.name,
               address: restaurant.address,
+              categories: restaurant.categories,
             },
           };
 
@@ -86,6 +102,14 @@ const RestaurantAdd = () => {
       },
     });
   };
+
+  React.useEffect(() => {
+    if (user != null) {
+      CategoryApi.getAll(user.uid, (allCategories) => {
+        setCategories(allCategories);
+      });
+    }
+  }, [user]);
 
   return (
     <Box>
@@ -119,6 +143,22 @@ const RestaurantAdd = () => {
           >
             {mensajeError}
           </Text>
+
+          <Box mb="6">
+            <Stack spacing={10} direction="row">
+              {categories.map((category) => {
+                return (
+                  <Checkbox
+                    key={category.id}
+                    value={category.id}
+                    name="categories"
+                  >
+                    {category.name}
+                  </Checkbox>
+                );
+              })}
+            </Stack>
+          </Box>
 
           <Flex col="2" justifyContent="space-between">
             <Link to="/restaurants">

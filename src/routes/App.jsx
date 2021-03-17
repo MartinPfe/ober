@@ -13,7 +13,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Flex display="flex" flexGrow flexDirection="column" p="6">
+        <Flex display="flex" flexGrow flexDirection="column" p="6" mb="8">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/restaurants" component={Restaurants} />
@@ -37,14 +37,14 @@ const App = () => {
               path="/products/add/:productId"
               component={ProductsAdd}
             />
+            <Route
+              exact
+              path="/menu/:userId/:restaurantId"
+              component={RestaurantMenu}
+            />
           </Switch>
         </Flex>
       </Layout>
-      <Route
-        exact
-        path="/menu/:userId/:restaurantId"
-        component={RestaurantMenu}
-      />
     </BrowserRouter>
   );
 };

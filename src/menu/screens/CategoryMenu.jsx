@@ -15,9 +15,7 @@ const CategoryMenu = ({ userId, categoryId, products }) => {
     }
   }, [userId, categoryId]);
 
-  console.log("categoryId:", categoryId);
-  console.log("products:", products);
-  return (
+  return category ? (
     <Box ml="8">
       <Text fontSize="3xl" fontWeight="bold">
         {category.name || ""}
@@ -31,6 +29,8 @@ const CategoryMenu = ({ userId, categoryId, products }) => {
         ))}
       </Wrap>
     </Box>
+  ) : (
+    <Box>Loading</Box>
   );
 };
 

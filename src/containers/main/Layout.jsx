@@ -7,7 +7,8 @@ const Layout = ({ children, props }) => {
     <>
       <Header />
       {children}
-      <Footer />
+
+      {props?.hideLayout ? "" : <Footer />}
     </>
   );
 };

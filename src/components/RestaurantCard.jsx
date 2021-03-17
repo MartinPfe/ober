@@ -45,6 +45,9 @@ const RestaurantCard = ({ restaurant, callbackFunc }) => {
         <Link to={`/restaurants/add/${restaurant.id}`}>
           <Button bg="blue.300">Editar</Button>
         </Link>
+        <Link to={`/menu/${user.uid}/${restaurant.id}`}>
+          <Button bg="blue.300">Ver Menu</Button>
+        </Link>
         <Button bg="red.300" onClick={deleteRestaurant}>
           Eliminar
         </Button>

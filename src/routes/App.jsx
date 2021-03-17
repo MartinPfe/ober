@@ -6,6 +6,7 @@ import CategoriesScreen from "../categories/screens/CategoriesScreen";
 import { Home, Restaurants } from "../containers/";
 import Layout from "../containers/main/Layout";
 import RestaurantAdd from "../containers/restaurants/RestaurantAdd";
+import RestaurantMenu from "../menu/screens/RestaurantMenu";
 import ProductsAdd from "../products/screens/ProductsAdd";
 import ProductsScreen from "../products/screens/ProductsScreen";
 const App = () => {
@@ -39,6 +40,11 @@ const App = () => {
           </Switch>
         </Flex>
       </Layout>
+      <Route
+        exact
+        path="/menu/:userId/:restaurantId"
+        component={RestaurantMenu}
+      />
     </BrowserRouter>
   );
 };

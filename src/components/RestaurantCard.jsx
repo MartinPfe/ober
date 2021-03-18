@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import RestaurantApi from "../api/RestaurantApi";
 import useUser from "../hooks/useUser";
+import QRGenerator from "./QRGenerator";
 
 const RestaurantCard = ({ restaurant, callbackFunc }) => {
   const user = useUser();
@@ -41,6 +42,13 @@ const RestaurantCard = ({ restaurant, callbackFunc }) => {
         {restaurant.address}
       </Text>
 
+      <Box>
+        <QRGenerator
+          name={restaurant.name}
+          userId={user.uid}
+          restaurantId={restaurant.id}
+        />
+      </Box>
       <Flex justifyContent="space-between">
         <Link to={`/restaurants/add/${restaurant.id}`}>
           <Button bg="blue.300">Editar</Button>

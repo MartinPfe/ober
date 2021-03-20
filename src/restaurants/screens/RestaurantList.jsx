@@ -1,10 +1,10 @@
 import { Box, Button, Flex, HStack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import RestaurantApi from "../../api/RestaurantApi";
-import RestaurantCard from "../../components/RestaurantCard";
 import useUser from "../../hooks/useUser";
-const Restaurants = () => {
+import RestaurantApi from "../api";
+import RestaurantCard from "./RestaurantCard";
+const RestaurantList = () => {
   const user = useUser();
 
   const [Restaurants, setRestaurants] = useState([]);
@@ -49,4 +49,4 @@ const Restaurants = () => {
   );
 };
 
-export default Restaurants;
+export default RestaurantList;

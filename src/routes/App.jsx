@@ -3,12 +3,13 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import CategoriesAdd from "../categories/screens/CategoriesAdd";
 import CategoriesScreen from "../categories/screens/CategoriesScreen";
-import { Home, Restaurants } from "../containers/";
+import { Home } from "../containers/";
 import Layout from "../containers/main/Layout";
-import RestaurantAdd from "../containers/restaurants/RestaurantAdd";
 import RestaurantMenu from "../menu/screens/RestaurantMenu";
 import ProductsAdd from "../products/screens/ProductsAdd";
 import ProductsScreen from "../products/screens/ProductsScreen";
+import RestaurantAdd from "../restaurants/screens/RestaurantAdd";
+import RestaurantList from "../restaurants/screens/RestaurantList";
 const App = () => {
   return (
     <BrowserRouter>
@@ -16,7 +17,7 @@ const App = () => {
         <Flex display="flex" flexGrow flexDirection="column" p="6" mb="8">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/restaurants" component={Restaurants} />
+            <Route exact path="/restaurants" component={RestaurantList} />
             <Route exact path="/restaurants/add" component={RestaurantAdd} />
             <Route
               exact

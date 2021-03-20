@@ -10,9 +10,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import RestaurantApi from "../../api/RestaurantApi";
 import CategoryApi from "../../categories/api";
 import useUser from "../../hooks/useUser";
+import RestaurantApi from "../api";
 
 const RestaurantAdd = () => {
   const form = useRef(null);

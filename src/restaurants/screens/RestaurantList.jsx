@@ -39,6 +39,7 @@ const RestaurantList = () => {
       <HStack col={1} spacing="24px">
         {Restaurants.map((restaurant) => (
           <RestaurantCard
+            user={user}
             callbackFunc={updateRestaurantes}
             key={restaurant.id}
             restaurant={restaurant}

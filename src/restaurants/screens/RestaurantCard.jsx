@@ -1,12 +1,17 @@
-import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
 import QRGenerator from "../../components/QRGenerator";
-import useUser from "../../hooks/useUser";
 import RestaurantApi from "../api";
 
-const RestaurantCard = ({ restaurant, callbackFunc }) => {
-  const user = useUser();
+const RestaurantCard = ({ user, restaurant, callbackFunc }) => {
   const toast = useToast();
 
   const deleteRestaurant = () => {

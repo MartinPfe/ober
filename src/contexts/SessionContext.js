@@ -15,8 +15,6 @@ const SessionProvider = ({ children }) => {
     });
   }, []);
 
-  //   if (!user) return <LoginButton signIn={AuthApi.signIn} status={status} />;
-
   const state = { user };
   const actions = { signOut: AuthApi.signOut, signIn: AuthApi.signIn };
 
